@@ -1,5 +1,6 @@
 import { Patch } from '@/nostr/nip43';
 import UserLabel from './UserLabel';
+import { formatDate } from '@/utils/utils';
 
 export default function Patches({ patches }: { patches: Patch[] }) {
   return (
@@ -9,8 +10,7 @@ export default function Patches({ patches }: { patches: Patch[] }) {
         {patches.map((patch, index) => (
           <div key={index} className="bg-gray-700 p-4 rounded-lg shadow">
             <p>
-              <strong>Date:</strong>{' '}
-              {new Date(patch.event.created_at).toLocaleDateString()}
+              <strong>Date:</strong> {formatDate(patch.event.created_at)}
             </p>
             <div>
               <strong>Owner:</strong>

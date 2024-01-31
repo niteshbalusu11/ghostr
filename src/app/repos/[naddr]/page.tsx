@@ -27,13 +27,6 @@ export default function Repo({ params }: { params: { naddr: string } }) {
           let { relays, identifier, pubkey, kind } =
             data as nip19.AddressPointer;
 
-          console.info(
-            'relays, identifier, pubkey, kind',
-            relays,
-            identifier,
-            pubkey,
-            kind
-          );
           if (kind !== 30617) {
             console.error('Invalid kind for repo', kind);
             return;
@@ -133,7 +126,7 @@ export default function Repo({ params }: { params: { naddr: string } }) {
   }, [eoseHappened, repository]);
 
   return (
-    <div>
+    <div className="mt-10">
       {repository && <Repository repo={repository} />}
       {patches && patches.length !== 0 && <Patches patches={patches} />}
     </div>

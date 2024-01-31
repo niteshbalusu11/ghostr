@@ -8,3 +8,8 @@ export const copyToClipboard = async (text: string) => {
     console.error('Failed to copy: ', err);
   }
 };
+
+export const formatDate = (unixTimestamp: number) => {
+  const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
+  return date.toUTCString();
+};
