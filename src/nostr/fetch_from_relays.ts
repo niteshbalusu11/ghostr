@@ -1,13 +1,13 @@
 import { SimplePool } from "nostr-tools";
 import { Repo, Patch, parseRepo, parsePatch } from "./nip43";
-import { repositoryRelays, repoCache, patchCache } from "./nostr";
+import { repositoryRelays, repoCache, patchCache, pool } from "./nostr";
 
 export const fetchFromRelays = async () => {
   let repos: Repo[] = [];
   let patches: Patch[] = [];
   let eoseHappened = false;
 
-  const pool = new SimplePool();
+  repos = Array.from(repoCache.values());
 
   pool.subscribeMany(
     repositoryRelays,
@@ -21,8 +21,8 @@ export const fetchFromRelays = async () => {
       onevent(evt) {
         switch (evt.kind) {
           case 30617:
-            let repo = parseRepo(evt);
-            let idx = repos.findIndex(
+            const repo = parseRepo(evt);
+            const idx = repos.findIndex(
               (r) => r.id === repo.id && r.event.pubkey === repo.event.pubkey
             );
 
@@ -39,7 +39,7 @@ export const fetchFromRelays = async () => {
 
             break;
           case 1617:
-            let patch = parsePatch(evt);
+            const patch = parsePatch(evt);
             if (patch) {
               if (eoseHappened) {
                 patches = [patch, ...patches];

@@ -62,8 +62,6 @@ export function parseRepo(evt: Event, sourceRelays: string[] = []): Repo {
         break;
     }
   }
-  console.log(repo.id);
-
   return repo;
 }
 
