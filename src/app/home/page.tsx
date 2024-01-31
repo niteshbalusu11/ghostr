@@ -1,10 +1,12 @@
-"use client";
+'use client';
 
-import { Patch, Repo, parsePatch, parseRepo } from "@/nostr/nip43";
-import { patchCache, pool, repoCache, repositoryRelays } from "@/nostr/nostr";
-import { useEffect, useState } from "react";
+import { Patch, Repo, parsePatch, parseRepo } from '@/nostr/nip43';
+import { patchCache, pool, repoCache, repositoryRelays } from '@/nostr/nostr';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Repos() {
+  const router = useRouter();
   const [repos, setRepos] = useState<Repo[]>([]);
   const [patches, setPatches] = useState<Patch[]>([]);
   const [eoseHappened, setEoseHappened] = useState(false);
@@ -92,7 +94,11 @@ export default function Repos() {
         {repos
           .filter((repo) => !!repo.name)
           .map((repo) => (
-            <div key={repo.guid} className="bg-gray-600 p-3 rounded shadow">
+            <div
+              key={repo.guid}
+              className="bg-gray-600 p-3 rounded shadow cursor-pointer"
+              onClick={() => router.push(`/repos/${repo.naddr}`)}
+            >
               <h2 className="text-lg text-white font-bold">{repo.name}</h2>
               <p className="text-gray-300 text-sm">{repo.description}</p>
             </div>

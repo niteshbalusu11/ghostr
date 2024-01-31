@@ -1,6 +1,5 @@
-import { SimplePool } from "nostr-tools";
-import { Repo, Patch, parseRepo, parsePatch } from "./nip43";
-import { repositoryRelays, repoCache, patchCache, pool } from "./nostr";
+import { Repo, Patch, parseRepo, parsePatch } from './nip43';
+import { repositoryRelays, repoCache, patchCache, pool } from './nostr';
 
 export const fetchFromRelays = async () => {
   let repos: Repo[] = [];
